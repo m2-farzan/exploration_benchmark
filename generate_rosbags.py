@@ -17,10 +17,14 @@ def main():
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
     subprocess.run('killall -s9 gzserver gzclient rviz; rosnode kill -a', shell=True)
     for (env_name, env_props), (exp_package_name, exp_package_cmds), (robot_name, robot_cmds_functor) in itertools.product(envs.items(), exp_packages.items(), robots.items()):
+        existing_bags_ls_status = subprocess.call(['ls', '-1', f'{env_name}:{exp_package_name}:{robot_name}*.bag'])
+        if existing_bags_ls_status == 0:
+            logging.info(f'Skipping {env_name}:{exp_package_name}:{robot_name}')
+            continue
         for initial_pose in env_props['initial_poses']:
             logging.info(f'Item: ({env_name}:{exp_package_name}:{robot_name}:{initial_pose})')
             procs = []
-            rosbag_proc = subprocess.Popen(f'rosbag record --bz2 /map /tf /tf_static -O {env_name}:{exp_package_name}:{robot_name}:{initial_pose[0]:.2f}:{initial_pose[1]:.2f}.bag', shell=True)
+            rosbag_proc = subprocess.Popen(f'rosbag record --bz2 /map /tf /tf_static -O {env_name}:{exp_package_name}:{robot_name}:{initial_pose[0]:.2f}:{initial_pose[1]:.2f}:{initial_pose[3]:.2f}.bag', shell=True)
             procs.append(rosbag_proc)
             for cmd in env_props['cmds']:
                 proc = subprocess.Popen(cmd, shell=True)

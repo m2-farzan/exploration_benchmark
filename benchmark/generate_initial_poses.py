@@ -1,7 +1,17 @@
-import cv2
 import random
 
-def generate_initial_poses(map_file, res=0.01, origin_x=-15, origin_y=-15, origin_z=0.0, num_poses=10):
+import cv2
+
+from . import config
+
+def generate_initial_poses(
+    map_file,
+    res=config.pgm_resolution,
+    origin_x=config.pgm_origin_x,
+    origin_y=config.pgm_origin_y,
+    origin_z=config.pgm_origin_z,
+    num_poses=config.num_poses
+):
     # Keep it simple, stupid
     img = cv2.imread(map_file, 0)
     poses = []
@@ -19,7 +29,8 @@ def generate_initial_poses(map_file, res=0.01, origin_x=-15, origin_y=-15, origi
             img[min(img.shape[0]-1, x+int(r/res)), min(img.shape[1]-1, y+int(r/res))] != 128 or \
             img[min(img.shape[0]-1, x+int(r/res)), max(0, y-int(r/res))] != 128 or \
             img[max(0, x-int(r/res)), min(img.shape[1]-1, y+int(r/res))] != 128 or \
-            img[max(0, x-int(r/res)), max(0, y-int(r/res))] != 128:  # thanks, copilot!
-            continue
-        poses.append((x * res + origin_x, y * res + origin_y, origin_z, Y))  # swap x, y
+            img[max(0, x-int(r/res)), max(0, y-int(r/res))] != 128 \
+        :
+            continue  # thanks, copilot!
+        poses.append((x * res + origin_x, y * res + origin_y, origin_z, Y))
     return poses

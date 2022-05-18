@@ -5,10 +5,26 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Current File",
+            "name": "Generate Rosbags",
             "type": "python",
             "request": "launch",
-            "program": "main.py",
+            "program": "generate_rosbags.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "Analyze Rosbags",
+            "type": "python",
+            "request": "launch",
+            "program": "analyze_rosbags.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "Aggregate",
+            "type": "python",
+            "request": "launch",
+            "program": "aggregate.py",
             "console": "integratedTerminal",
             "justMyCode": true
         }

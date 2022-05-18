@@ -8,11 +8,13 @@ envs = {
             'roslaunch gazebo_ros empty_world.launch world_name:=$(pwd)/assets/worlds/01-simple/world.xml'
         ],
         'initial_poses': generate_initial_poses('assets/worlds/01-simple/map.png'),
+        'map_file': 'assets/worlds/01-simple/map.png',
     },
-    'wide-open': {
+    'office': {
         'cmds': [
             'roslaunch gazebo_ros empty_world.launch world_name:=$(pwd)/assets/worlds/05-office/world.xml'
         ],
         'initial_poses': generate_initial_poses('assets/worlds/05-office/map.png'),
+        'map_file': 'assets/worlds/05-office/map.png',
     }
 }

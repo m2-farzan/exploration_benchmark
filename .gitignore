@@ -2,3 +2,5 @@ workspace
 __pycache__
 *.bag
 *.bag.active
+*.tex
+*.pkl
